@@ -1,0 +1,20 @@
+config append omero.web.apps '"slicer"'
+
+# Add a link to the app from webclient toolbar
+#config append omero.web.ui.top_links '["3Dslicer", "slicer_index", {"title": "Open app in new tab", "target": "_blank"}]'
+
+#Add a link to the app from webclient open_wiht
+config append omero.web.open_with '["3Dslicer", "slicer_index", {"supported_objects": ["images"], "target": "_blank", "label": "OMERO.3Dslicer"}]'
+
+
+# Uncomment this out to enable, if app has been installed
+# config append omero.web.apps '"react_webapp"'
+
+config set omero.web.debug True
+
+# enable CORS so e.g. react-webapp can connect to OMERO.web on different origin
+# See https://docs.openmicroscopy.org/latest/omero/sysadmins/unix/install-web.html
+config append omero.web.apps '"corsheaders"'
+config append omero.web.middleware '{"index": 0.5, "class": "corsheaders.middleware.CorsMiddleware"}'
+config append omero.web.middleware '{"index": 10, "class": "corsheaders.middleware.CorsPostCsrfMiddleware"}'
+config set omero.web.cors_origin_allow_all True
